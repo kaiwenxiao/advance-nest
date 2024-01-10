@@ -1,12 +1,11 @@
 import {Module} from "@nestjs/common";
-import {ConfigModule} from "@nestjs/config";
-import Joi from "joi";
+import { ConfigModule as NestJsConfigModule, ConfigService } from '@nestjs/config';
 import {validationSchema} from "@lib/config/app.config";
 import {app} from "firebase-admin";
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
+	  NestJsConfigModule.forRoot({
       envFilePath: [`${process.cwd()}/env/.env.${process.env.NODE_ENV}`],
       load: [
         app
@@ -17,5 +16,7 @@ import {app} from "firebase-admin";
       validationSchema: validationSchema
     })
   ],
+	providers: [ConfigService],
+	exports: [ConfigService]
 })
-export class NestConfigModule {}
+export class ConfigModule {}
