@@ -24,7 +24,8 @@
     },
     "declaration": true,
     "outDir": "dist",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
   },
   "include": [
     "test/**/*",
