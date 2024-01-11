@@ -35,6 +35,13 @@ export class RefreshTokensRepository {
     return token
   }
 
+	async findTokenByIdx(id: number): Promise<RefreshToken | null> {
+		return this.refreshTokenRepository.findOne({
+			id,
+			isRevoked: false,
+		});
+	}
+
   async deleteTokensForUser(user: User): Promise<boolean> {
     // Repository - nativeUpdate and EntityManager update
     /**
