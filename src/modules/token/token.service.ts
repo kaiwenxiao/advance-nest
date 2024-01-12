@@ -8,6 +8,7 @@ import { pick } from 'helper-fns';
 import { IResponse } from '@common/interfaces/response.interface';
 
 export interface RefreshTokenPayload {
+	// jwt id
 	jti: number
 	sub: number
 }
@@ -103,7 +104,7 @@ export class TokenService {
 	async deleteRefreshTokenForUser(user: User): Promise<IResponse<User>> {
 		await this.tokens.deleteTokensForUser(user);
 
-		return { message: 'Operation Sucessful', data: user };
+		return { message: 'Operation Successful', data: user };
 	}
 
 	async deleteRefreshToken(

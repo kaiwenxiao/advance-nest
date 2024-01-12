@@ -14,6 +14,30 @@ export abstract class BaseEntity {
   })
   isActive: boolean
 
+
+  /**
+   * import { Exclude } from 'class-transformer';
+   *
+   * class User {
+   *  id: number;
+   *  name: string;
+   *
+   *  @Exclude({ toPlainOnly: true })
+   *  password: string;
+   * }
+   *
+   * const user = new User();
+   * user.id = 1;
+   * user.name = 'John Doe';
+   * user.password = 'secret';
+   *
+   * import { classToPlain } from 'class-transformer';
+   *
+   * const plainUser = classToPlain(user);
+   *
+   * console.log(plainUser); // Outputs: { id: 1, name: 'John Doe' }
+   */
+  // TODO what it means
   @Exclude({toPlainOnly: true})
   @Property({
     nullable: false,

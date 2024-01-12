@@ -10,6 +10,8 @@ export class RefreshTokensRepository {
     private readonly refreshTokenRepository: EntityRepository<RefreshToken>
   ) {}
 
+  // mostly business logic should in .service file, rather than .repository ?
+  // different with .module ?
   async createRefreshToken(user: User, ttl: number): Promise<RefreshToken> {
     const token = new RefreshToken()
 
@@ -29,6 +31,8 @@ export class RefreshTokensRepository {
      * while flush executes the actual insertion.
      * If you want to immediately persist and flush an entity,
      * you can use the persistAndFlush method
+     *
+     * repository manipulate specific entity
      */
     await this.refreshTokenRepository.persistAndFlush(token)
 
@@ -43,7 +47,7 @@ export class RefreshTokensRepository {
 	}
 
   async deleteTokensForUser(user: User): Promise<boolean> {
-    // Repository - nativeUpdate and EntityManager update
+    // Repository nativeUpdate and EntityManager update
     /**
      * take advantage of features like automatic dirty checking,
      * lifecycle hooks,
