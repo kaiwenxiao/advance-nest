@@ -44,7 +44,7 @@ export class User extends BaseEntity {
   })
   email: string
 
-  @OneToMany(() => Post, post => post.user, {hidden: true})
+  @OneToMany(() => Post, post => post.user, {hidden: true, default: null})
   posts = new Collection<Post>(this)
 
   @Property({
@@ -52,11 +52,11 @@ export class User extends BaseEntity {
   })
   username: string
 
-  @Property({hidden: true})
+  @Property({hidden: true, default: null})
   password: string
 
   // when ManyToMany not determine entity or mapper, this entity of table should be the owner between this two entity
-  @ManyToMany({hidden: true})
+  @ManyToMany({hidden: true, default: null})
   favorites = new Collection<Post>(this)
 
   @ManyToMany({
@@ -66,11 +66,12 @@ export class User extends BaseEntity {
     pivotTable: 'user_to_follower',
     joinColumn: 'follower',
     inverseJoinColumn: 'following',
-    hidden: true
+    hidden: true,
+    default: null
   })
   followers = new Collection<User>(this)
 
-  @ManyToMany(() => User, u => u.followers, {hidden: true})
+  @ManyToMany(() => User, u => u.followers, {hidden: true, default: null})
   followed = new Collection<User>(this)
 
   @Property({
