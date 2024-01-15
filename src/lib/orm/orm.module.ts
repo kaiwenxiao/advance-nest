@@ -23,6 +23,7 @@ import * as Entities from '@entities'
         loadStrategy: LoadStrategy.JOINED,
         highlighter: new SqlHighlighter(),
         registerRequestContext: false,
+        // infer the property type in SQL (static), but class-validator (active)
         metadataProvider: TsMorphMetadataProvider
       }),
       inject: [ConfigModule]
