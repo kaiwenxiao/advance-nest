@@ -24,9 +24,9 @@ import * as Entities from '@entities'
         highlighter: new SqlHighlighter(),
         registerRequestContext: false,
         // infer the property type in SQL (static), but class-validator (active)
-        metadataProvider: TsMorphMetadataProvider
+        metadataProvider: TsMorphMetadataProvider,
       }),
-      inject: [ConfigModule]
+      inject: [ConfigService]
     }),
     MikroOrmModule.forFeature({
       entities: [...Object.values(Entities)]

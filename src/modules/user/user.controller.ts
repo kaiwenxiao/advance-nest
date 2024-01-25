@@ -1,34 +1,74 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+	Controller,
+	Get,
+	Post,
+	Put,
+	Delete,
+	Param,
+	Body,
+	ParseUUIDPipe,
+	Query,
+} from '@nestjs/common';
 import { UserService } from './user.service';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { EditUserDto } from './dto/update-user.dto';
+import { GetPaginationQuery } from '@common/classes/pagination';
 
+@ApiTags('Users routes')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+	constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
+	@ApiOperation({ summary: 'Get all users' })
+	@Get()
+	async getManyUsers(@Query() params: GetPaginationQuery) {
+		const data = await this.userService.getMany(params.limit, params.page);
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
+		return { message: 'Success', data };
+	}
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
+	@ApiOperation({ summary: 'Register user' })
+	@Post('register')
+	async publicRegistration(@Body() dto: CreateUserDto) {
+		console.log('haha');
+		const data = await this.userService.createOne(dto);
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
+		return { message: 'User registered', data };
+	}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
-  }
+	@ApiOperation({ summary: 'Get a user' })
+	@Get(':idx')
+	async getOneUser(@Param('idx', ParseUUIDPipe) idx: string) {
+		const data = await this.userService.getOneUser(idx);
+
+		return { data };
+	}
+
+	@ApiOperation({ summary: 'Create user' })
+	@Post()
+	async createUser(@Body() dto: CreateUserDto) {
+		const data = await this.userService.createOne(dto);
+
+		return { message: 'User created', data };
+	}
+
+	@ApiOperation({ summary: 'Edit user' })
+	@Put(':idx')
+	async editUser(
+		@Param('idx', ParseUUIDPipe) idx: string,
+		@Body() dto: EditUserDto,
+	) {
+		const data = await this.userService.editOne(idx, dto);
+
+		return { message: 'User edited', data };
+	}
+
+	@ApiOperation({ summary: 'Delete user' })
+	@Delete(':idx')
+	async deleteUser(@Param('idx', ParseUUIDPipe) idx: string) {
+		const data = await this.userService.deleteUser(idx);
+
+		return { message: 'User deleted', data };
+	}
 }

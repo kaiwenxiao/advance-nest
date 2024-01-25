@@ -81,7 +81,7 @@ export class User extends BaseEntity {
 
   @BeforeCreate()
   @BeforeUpdate()
-  async hashPssword() {
+  async hashPassword() {
     this.password = await HelperService.hashString(this.password)
   }
 

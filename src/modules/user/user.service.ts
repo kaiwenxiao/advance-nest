@@ -61,6 +61,8 @@ export class UserService {
       isObsolete: false,
     });
 
+		console.log('emailUserExist', emailUserExist)
+
     if (emailUserExist)
       throw new BadRequestException(
         'Account already registered with email',

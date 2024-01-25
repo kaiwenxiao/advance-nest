@@ -1,14 +1,15 @@
-import {Module} from "@nestjs/common";
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule as NestJsConfigModule, ConfigService } from '@nestjs/config';
-import {validationSchema} from "@lib/config/app.config";
-import {app} from "firebase-admin";
+import { validationSchema } from './validate.config';
+import { app, database, jwt } from './configs';
 
+@Global()
 @Module({
   imports: [
 	  NestJsConfigModule.forRoot({
-      envFilePath: [`${process.cwd()}/env/.env.${process.env.NODE_ENV}`],
+      envFilePath: ['env/.env.dev'],
       load: [
-        app
+        app, database, jwt
       ],
       cache: true,
       isGlobal: true,

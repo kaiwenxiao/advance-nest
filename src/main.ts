@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import compression from 'compression';
 import { ValidationPipe } from '@nestjs/common';
+import setupSwagger from './swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
@@ -35,8 +36,11 @@ async function bootstrap() {
 
 
 	const port = configService.get<number>('app.port', 3000)
+	console.log('port', port);
 
-	await app.listen(port)
+	setupSwagger(app)
+
+	await app.listen(port, 'localhost')
 
 	console.info('Bootstrap', `Server running on 🚀 ${await app.getUrl()}`)
 }

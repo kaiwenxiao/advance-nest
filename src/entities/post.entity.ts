@@ -36,5 +36,6 @@ export class Post extends BaseEntity {
     eager: true,
     orphanRemoval: true
   })
+  // comment collection for current post entity
   comment = new Collection<Comment>(this)
 }

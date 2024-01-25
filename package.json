@@ -33,7 +33,7 @@
     "typescript"
   ],
   "engines": {
-    "node": ">=20.10.0"
+    "node": ">=14"
   },
   "scripts": {
     "build": "nest build",
@@ -41,9 +41,9 @@
     "lint:fix": "ESLINT_USE_FLAT_CONFIG=true eslint '{src,test}/**/*.ts' --cache --fix",
     "lint:view": "npx eslint-flat-config-viewer",
     "orm": "npx mikro-orm",
-    "sample": "cd env; npx  sample-env --env .env.dev",
+    "sample": "cd env; npx  sample-env --env env/.env.dev",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "cross-env NODE_ENV=dev nest start --watch",
     "start:hmr": "nest build --watch --webpack --webpackPath webpack-hmr.js",
     "start:prod": "node dist/main",
     "start:repl": "MIKRO_ORM_ALLOW_GLOBAL_CONTEXT=true nest start --watch --entryFile repl",
@@ -142,8 +142,8 @@
     "@firebase/app-compat": "^0.2.25",
     "@firebase/app-types": "^0.9.0",
     "@golevelup/ts-jest": "^0.4.0",
-    "@mikro-orm/cli": "6.0.0-rc.3",
-    "@mikro-orm/seeder": "6.0.0-rc.3",
+    "@mikro-orm/cli": "^5.1.1",
+    "@mikro-orm/seeder": "^5.1.1",
     "@nestjs/cli": "10.2.1",
     "@nestjs/schematics": "10.0.3",
     "@nestjs/testing": "10.3.0",
